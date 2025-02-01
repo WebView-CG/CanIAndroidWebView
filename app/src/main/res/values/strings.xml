@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CanIAndroidWebView</string>
+    <string name="title_webview">WebView</string>
+    <string name="title_config">Config</string>
+</resources>
