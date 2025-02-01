@@ -9,12 +9,12 @@
         android:id="@+id/navigation_webview"
         android:name="com.caniwebview.android.ui.webview.WebViewFragment"
         android:label="@string/title_webview"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_config"
         android:name="com.caniwebview.android.ui.config.ConfigFragment"
         android:label="@string/title_config"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_webviewsettings" />
 
 </navigation>

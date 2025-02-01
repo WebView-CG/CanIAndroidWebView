@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ConfigViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "You will be able to configure your WebView here soon"
     }
     val text: LiveData<String> = _text
 }
