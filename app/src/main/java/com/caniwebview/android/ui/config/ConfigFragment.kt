@@ -1,12 +1,21 @@
 package com.caniwebview.android.ui.config
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import com.caniwebview.android.R
 import com.caniwebview.android.databinding.FragmentConfigBinding
 
 class ConfigFragment : Fragment() {
@@ -25,11 +34,41 @@ class ConfigFragment : Fragment() {
 
         sharedPreferences = requireActivity().getSharedPreferences("WebViewSettings", Context.MODE_PRIVATE)
 
+        // Add the MenuProvider
+        setupMenu()
+
         // Initialize UI elements and load saved settings
         setupUI()
         loadSettings()
 
         return root
+    }
+
+    private fun setupMenu() {
+        // The usage of an interface lets you inject your own implementation.
+        val menuHost: MenuHost = requireActivity()
+
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State.
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_config, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.action_github -> {
+                        openGitHub()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupUI() {
@@ -61,6 +100,11 @@ class ConfigFragment : Fragment() {
             putBoolean(key, value)
             apply()
         }
+    }
+
+    private fun openGitHub() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/WebView-CG/CanIAndroidWebView"))
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

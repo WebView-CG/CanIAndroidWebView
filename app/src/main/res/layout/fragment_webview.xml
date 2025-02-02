@@ -13,15 +13,18 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="Enter URL"
-                                android:text="@string/default_url"
-                                android:padding="8dp" />
+                                android:autofillHints="url"
+                                android:hint="@string/enter_url"
+                                android:inputType="textUri"
+                                android:minHeight="48dp"
+                                android:padding="8dp"
+                                android:text="@string/default_url" />
 
                             <Button
                                 android:id="@+id/load_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Load"
+                                android:text="@string/load"
                                 android:padding="8dp" />
                         </LinearLayout>
 
