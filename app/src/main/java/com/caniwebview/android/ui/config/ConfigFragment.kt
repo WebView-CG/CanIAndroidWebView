@@ -72,6 +72,20 @@ class ConfigFragment : Fragment() {
     }
 
     private fun setupUI() {
+        // Presets
+        binding.selectAllButton.setOnClickListener {
+            setPreset("all")
+        }
+
+        binding.selectNoneButton.setOnClickListener {
+            setPreset("none")
+        }
+
+        binding.selectCordovaButton.setOnClickListener {
+            setPreset("cordova")
+        }
+
+        // Settings
         binding.javaScriptEnabledCheckBox.setOnCheckedChangeListener { _, isChecked ->
             saveSetting("javaScriptEnabled", isChecked)
         }
@@ -99,6 +113,29 @@ class ConfigFragment : Fragment() {
         with(sharedPreferences.edit()) {
             putBoolean(key, value)
             apply()
+        }
+    }
+
+    private fun setPreset(preset: String) {
+        when (preset) {
+            "all" -> {
+                binding.javaScriptEnabledCheckBox.isChecked = true
+                binding.javaScriptCanOpenWindowsCheckBox.isChecked = true
+                binding.domStorageEnabledCheckBox.isChecked = true
+                binding.geolocationEnabledCheckBox.isChecked = true
+            }
+            "none" -> {
+                binding.javaScriptEnabledCheckBox.isChecked = false
+                binding.javaScriptCanOpenWindowsCheckBox.isChecked = false
+                binding.domStorageEnabledCheckBox.isChecked = false
+                binding.geolocationEnabledCheckBox.isChecked = false
+            }
+            "cordova" -> {
+                binding.javaScriptEnabledCheckBox.isChecked = true
+                binding.javaScriptCanOpenWindowsCheckBox.isChecked = true
+                binding.domStorageEnabledCheckBox.isChecked = true
+                binding.geolocationEnabledCheckBox.isChecked = true
+            }
         }
     }
 

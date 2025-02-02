@@ -11,4 +11,8 @@
     <string name="load">Load</string>
     <string name="code">Code</string>
     <string name="github">GitHub</string>
+    <string name="cordova">Cordova</string>
+    <string name="none">None</string>
+    <string name="all">All</string>
+    <string name="presets">Presets</string>
 </resources>
