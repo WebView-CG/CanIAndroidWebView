@@ -10,38 +10,42 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/presets"
-        android:textSize="16sp"
-        android:textColor="@color/black" />
+        android:textColor="@color/blue_700"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="8dp">
 
         <Button
             android:id="@+id/select_all_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:background="@drawable/button_outline"
             android:text="@string/all"
-            android:textColor="@color/button_text_color" />
+            android:textColor="@color/blue_500" />
 
         <Button
             android:id="@+id/select_none_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:background="@drawable/button_outline"
             android:text="@string/none"
-            android:textColor="@color/button_text_color" />
+            android:textColor="@color/blue_500" />
 
         <Button
             android:id="@+id/select_cordova_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:background="@drawable/button_outline"
             android:text="@string/cordova"
-            android:textColor="@color/button_text_color" />
+            android:textColor="@color/blue_500" />
 
     </LinearLayout>
 
