@@ -2,7 +2,7 @@
     <string name="app_name">CanIAndroidWebView</string>
     <string name="title_webview">WebView</string>
     <string name="title_config">Config</string>
-    <string name="default_url">https://caniwebview.com</string>
+    <string name="default_url">https://caniwebview.com/app</string>
     <string name="javascript_enabled">JavaScript Enabled</string>
     <string name="javascript_can_open_windows">JavaScript Can Open Windows</string>
     <string name="dom_storage_enabled">DOM Storage Enabled</string>

@@ -41,7 +41,7 @@ class WebViewFragment : Fragment() {
         webView.webViewClient = WebViewClient()
 
         // Load url in field if saved
-        val savedUrl = sharedPreferences.getString("url", "https://caniwebview.com")
+        val savedUrl = sharedPreferences.getString("url", "https://caniwebview.com/app")
         if (savedUrl != null) {
             urlEditText.setText(savedUrl)
             webView.loadUrl(savedUrl)
