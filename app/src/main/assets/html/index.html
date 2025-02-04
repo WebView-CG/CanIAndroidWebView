@@ -21,28 +21,62 @@
         <a href="https://mdn-bcd-collector.gooborg.com/">BCD Collector</a>
     </p>
 
-    <button onclick="corsTest()">
-        CORS Test Request
+    <button onclick="corsTestGet()">
+        CORS Test Request Get
     </button>
 
+    <button onclick="corsTestGetCookie()">
+        CORS Test Request Send Cookie
+    </button>
+
+    <h3>Test</h3>
+    <div id="testresult"></div>
+
     <script type="text/javascript">
-        function corsTest() {
-            fetch('https://caniwebview.merz.workers.dev/',
+        function corsTestGet() {
+            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
                 {
-                    method: 'POST',
+                    method: 'GET',
                     mode: 'cors',
+                    credentials: 'include',
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = data;
+                })
+                .catch(error => {
+                    console.error(error);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = error;
+                });
+        }
+
+        function corsTestGetCookie() {
+            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
+                {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'include',
                     headers: {
                         'Cookie': 'test=android'
                     }
                 })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
-                    alert(data);
                     console.log(data);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = data;
                 })
                 .catch(error => {
-                    alert('CORS request failed');
                     console.error(error);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = error;
                 });
         }
     </script>
