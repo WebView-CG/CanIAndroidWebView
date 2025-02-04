@@ -11,8 +11,39 @@
         </a>
     </p>
 
+    <h2>Tools</h2>
 
     <b>
-        <a href="https://caniwebview.com/app">Check out caniwebview.com</a>
+        <a href="https://caniwebview.com/app">Check out data on caniwebview.com</a>
     </b>
+
+    <p>
+        <a href="https://mdn-bcd-collector.gooborg.com/">BCD Collector</a>
+    </p>
+
+    <button onclick="corsTest()">
+        CORS Test Request
+    </button>
+
+    <script type="text/javascript">
+        function corsTest() {
+            fetch('https://caniwebview.merz.workers.dev/',
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Cookie': 'test=android'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data);
+                    console.log(data);
+                })
+                .catch(error => {
+                    alert('CORS request failed');
+                    console.error(error);
+                });
+        }
+    </script>
 </body>

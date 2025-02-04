@@ -13,6 +13,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
@@ -40,6 +41,8 @@ class WebViewFragment : Fragment() {
         webView = binding.webView
         val urlEditText: EditText = binding.urlEditText
         val loadButton: Button = binding.loadButton
+        val urlBar = binding.urlBar
+
 
         // Create the asset loader
         // Create the asset loader with a custom domain
@@ -57,6 +60,12 @@ class WebViewFragment : Fragment() {
                 request: WebResourceRequest
             ): WebResourceResponse? {
                 return assetLoader.shouldInterceptRequest(request.url)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                // Show the current URL in the URL bar
+                urlBar.text = url
             }
         }
 
