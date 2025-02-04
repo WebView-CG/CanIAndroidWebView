@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:banner="@drawable/ic_baseline_android_24"
+        android:banner="@drawable/ic_launcher_foreground"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
