@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.webkit.WebViewAssetLoader
+import androidx.webkit.WebViewClientCompat
 import com.caniwebview.android.databinding.FragmentWebviewBinding
 
 class WebViewFragment : Fragment() {
@@ -38,10 +41,27 @@ class WebViewFragment : Fragment() {
         val urlEditText: EditText = binding.urlEditText
         val loadButton: Button = binding.loadButton
 
-        webView.webViewClient = WebViewClient()
+        // Create the asset loader
+        // Create the asset loader with a custom domain
+        val assetLoader = WebViewAssetLoader.Builder()
+            .setDomain("caniwebview.local") // Set your custom domain here
+            .setHttpAllowed(false) // Enforce HTTPS (recommended)
+            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(requireContext()))
+            .build()
+
+
+        // Set the WebViewClient
+        webView.webViewClient = object : WebViewClientCompat() {
+            override fun shouldInterceptRequest(
+                view: WebView,
+                request: WebResourceRequest
+            ): WebResourceResponse? {
+                return assetLoader.shouldInterceptRequest(request.url)
+            }
+        }
 
         // Load url in field if saved
-        val savedUrl = sharedPreferences.getString("url", "https://caniwebview.com/app")
+        val savedUrl = sharedPreferences.getString("url", "https://caniwebview.local/assets/html/index.html")
         if (savedUrl != null) {
             urlEditText.setText(savedUrl)
             webView.loadUrl(savedUrl)
