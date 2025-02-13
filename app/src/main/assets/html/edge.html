@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+        <meta name="theme-color" content="#ff0000">
+        <title>Test Case</title>
+        <style>
+        :root {
+            --status-color: green;
+            --bottom-color: lime;
+
+            --safe-area-top: env(safe-area-inset-top, 0px);
+
+            background: var(--status-color) linear-gradient(to bottom, var(--status-color) 0px, canvas 1px);
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            box-sizing: border-box;
+            padding: 0.5em;
+        }
+
+        html:has(meta[content*="-fit=cover"]) body {
+            padding: calc(env(safe-area-inset-top, 0px) + 0.5em) calc(env(safe-area-inset-right, 0px) + 0.5em) calc(env(safe-area-inset-bottom, 0px) + 0.5em) calc(env(safe-area-inset-left, 0px) + 0.5em);
+            background: linear-gradient(to bottom, var(--status-color) 0px, var(--status-color) env(safe-area-inset-top, 0px), transparent env(safe-area-inset-top, 0px), transparent calc(100% - env(safe-area-inset-bottom, 0px)), var(--bottom-color) calc(100% - env(safe-area-inset-bottom, 0px)));
+            background-repeat: no-repeat;
+        }
+
+        div {
+            margin: 1em 0;
+        }
+        </style>
+    </head>
+    <body>
+        Hello World
+
+        <div>
+            <button id="toggle">Toggle Safe Area</button>
+        </div>
+
+        <div>
+            <label>
+                Native status bar background:
+                <input id="picker" type="color" value="#ff0000">
+            </label>
+            <br>
+            <label>
+                Web safe-area-inset background:
+                <input id="picker2" type="color" value="#009900">
+            </label>
+        </div>
+
+        <p>Safe Area Top: <span id="safe-area-top"></span></p>
+
+        <script>
+            const vp = document.querySelector(`meta[name="viewport"]`);
+            document.getElementById("toggle").addEventListener("click", (e) => {
+                const attr = vp.getAttribute("content");
+                console.log(attr);
+
+                if (attr.includes("cover")) {
+                    vp.setAttribute("content", attr.replace("cover", "auto"));
+                } else {
+                    vp.setAttribute("content", attr.replace("auto", "cover"));
+                }
+
+                document.querySelector("#safe-area-top").innerHTML = getComputedStyle(document.documentElement).getPropertyValue("--safe-area-top");
+            });
+
+            document.getElementById("picker").addEventListener("change", (e) => {
+                document.querySelector(`meta[name="theme-color"]`).setAttribute("content", e.target.value);
+            });
+
+            document.getElementById("picker2").addEventListener("change", (e) => {
+                document.body.style.setProperty('--status-color', e.target.value);
+            });
+
+            document.querySelector("#safe-area-top").innerHTML = getComputedStyle(document.documentElement).getPropertyValue("--safe-area-top");
+        </script>
+    </body>
+</html>
