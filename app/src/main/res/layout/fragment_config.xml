@@ -50,6 +50,12 @@
     </LinearLayout>
 
     <CheckBox
+        android:id="@+id/fullscreenWebViewCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fullscreen_webview" />
+
+    <CheckBox
         android:id="@+id/javaScriptEnabledCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

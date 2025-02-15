@@ -86,6 +86,9 @@ class ConfigFragment : Fragment() {
         }
 
         // Settings
+        binding.fullscreenWebViewCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            saveSetting("fullscreenWebView", isChecked)
+        }
         binding.javaScriptEnabledCheckBox.setOnCheckedChangeListener { _, isChecked ->
             saveSetting("javaScriptEnabled", isChecked)
         }
@@ -102,11 +105,12 @@ class ConfigFragment : Fragment() {
     }
 
     private fun loadSettings() {
+        binding.fullscreenWebViewCheckBox.isChecked = sharedPreferences.getBoolean("fullscreenWebView", false)
         binding.javaScriptEnabledCheckBox.isChecked = sharedPreferences.getBoolean("javaScriptEnabled", true)
         binding.javaScriptCanOpenWindowsCheckBox.isChecked = sharedPreferences.getBoolean("javaScriptCanOpenWindows", true)
         binding.domStorageEnabledCheckBox.isChecked = sharedPreferences.getBoolean("domStorageEnabled", true)
         binding.geolocationEnabledCheckBox.isChecked = sharedPreferences.getBoolean("geolocationEnabled", true)
-        // Load other settings here...
+        // Load other settings here..
     }
 
     private fun saveSetting(key: String, value: Boolean) {
@@ -125,12 +129,14 @@ class ConfigFragment : Fragment() {
                 binding.geolocationEnabledCheckBox.isChecked = true
             }
             "none" -> {
+                binding.fullscreenWebViewCheckBox.isChecked = false
                 binding.javaScriptEnabledCheckBox.isChecked = false
                 binding.javaScriptCanOpenWindowsCheckBox.isChecked = false
                 binding.domStorageEnabledCheckBox.isChecked = false
                 binding.geolocationEnabledCheckBox.isChecked = false
             }
             "cordova" -> {
+                binding.fullscreenWebViewCheckBox.isChecked = true
                 binding.javaScriptEnabledCheckBox.isChecked = true
                 binding.javaScriptCanOpenWindowsCheckBox.isChecked = true
                 binding.domStorageEnabledCheckBox.isChecked = true

@@ -2,6 +2,7 @@ package com.caniwebview.android.ui.webview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +14,11 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
+import com.caniwebview.android.R
+import com.caniwebview.android.ui.fullscreen.WebViewActivity
 import com.caniwebview.android.databinding.FragmentWebviewBinding
 
 class WebViewFragment : Fragment() {
@@ -84,7 +86,15 @@ class WebViewFragment : Fragment() {
                     putString("url", url)
                     apply()
                 }
-                webView.loadUrl(url)
+
+                if (sharedPreferences.getBoolean("fullscreenWebView", false)) {
+                    val intent = Intent(requireContext(), WebViewActivity::class.java)
+                    intent.putExtra("url", url)
+                    startActivity(intent)
+                } else {
+                    webView.loadUrl(url)
+                    urlBar.text = url
+                }
             }
         }
 
@@ -111,6 +121,13 @@ class WebViewFragment : Fragment() {
         settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
         settings.saveFormData = false
         settings.mediaPlaybackRequiresUserGesture = false
+
+        // Change label of load button if fullscreen is enabled
+        if (sharedPreferences.getBoolean("fullscreenWebView", false)) {
+            binding.loadButton.text = getString(R.string.fullscreen)
+        } else {
+            binding.loadButton.text = getString(R.string.load)
+        }
     }
 
     override fun onDestroyView() {
