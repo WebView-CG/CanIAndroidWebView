@@ -29,14 +29,17 @@
         CORS Test Request Send Cookie
     </button>
 
-    <h3>Test</h3>
+    <h2>Test</h2>
+    <h3>Debug data from the WebView</h3>
     <div id="testresult"></div>
 
     <script type="text/javascript">
-        // Set origin on result div on load
+        // Set debug data on result div on load
         document.addEventListener('DOMContentLoaded', function() {
             const result = document.getElementById('testresult');
-            result.innerText = "Origin: " + window.location.origin;
+            const origin = window.location.origin;
+            const ua = window.navigator.userAgent;
+            result.textContent = `User agent: ${ua} / Origin: ${origin}`;
         });
         
         function corsTestGet() {
