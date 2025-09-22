@@ -17,5 +17,6 @@
     <string name="presets">Presets</string>
     <string name="fullscreen_webview">Fullscreen WebView</string>
     <string name="fullscreen">Fullscreen</string>
+    <string name="home">Home</string>
     <string name="docs">Documentation</string>
 </resources>

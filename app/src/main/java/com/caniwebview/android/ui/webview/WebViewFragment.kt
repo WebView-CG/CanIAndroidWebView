@@ -6,6 +6,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
@@ -14,7 +17,10 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
 import com.caniwebview.android.R
@@ -27,6 +33,10 @@ class WebViewFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var webView: WebView
+    
+    companion object {
+        private const val DEFAULT_URL = "https://caniwebview.local/assets/html/index.html"
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
@@ -39,6 +49,9 @@ class WebViewFragment : Fragment() {
 
         sharedPreferences =
             requireActivity().getSharedPreferences("WebViewSettings", Context.MODE_PRIVATE)
+
+        // Add the MenuProvider
+        setupMenu()
 
         webView = binding.webView
         val urlEditText: EditText = binding.urlEditText
@@ -72,7 +85,7 @@ class WebViewFragment : Fragment() {
         }
 
         // Load url in field if saved
-        val savedUrl = sharedPreferences.getString("url", "https://caniwebview.local/assets/html/index.html")
+        val savedUrl = sharedPreferences.getString("url", DEFAULT_URL)
         if (savedUrl != null) {
             urlEditText.setText(savedUrl)
             webView.loadUrl(savedUrl)
@@ -99,6 +112,53 @@ class WebViewFragment : Fragment() {
         }
 
         return root
+    }
+
+    private fun setupMenu() {
+        // The usage of an interface lets you inject your own implementation.
+        val menuHost: MenuHost = requireActivity()
+
+        // Add menu items without using the Fragment Menu APIs
+        // Note how we can tie the MenuProvider to the viewLifecycleOwner
+        // and an optional Lifecycle.State.
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_webview, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.action_home -> {
+                        loadDefaultUrl()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun loadDefaultUrl() {
+        val urlEditText: EditText = binding.urlEditText
+        urlEditText.setText(DEFAULT_URL)
+        
+        // Save to preferences
+        with(sharedPreferences.edit()) {
+            putString("url", DEFAULT_URL)
+            apply()
+        }
+
+        if (sharedPreferences.getBoolean("fullscreenWebView", false)) {
+            val intent = Intent(requireContext(), WebViewActivity::class.java)
+            intent.putExtra("url", DEFAULT_URL)
+            startActivity(intent)
+        } else {
+            webView.loadUrl(DEFAULT_URL)
+            binding.urlBar.text = DEFAULT_URL
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
