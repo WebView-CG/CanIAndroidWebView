@@ -61,7 +61,11 @@ class ConfigFragment : Fragment() {
                 // Handle the menu selection
                 return when (menuItem.itemId) {
                     R.id.action_github -> {
-                        openGitHub()
+                        openUrlInBrowser("https://github.com/WebView-CG/CanIAndroidWebView")
+                        true
+                    }
+                    R.id.action_testing_url -> {
+                        openUrlInBrowser("https://caniwebview.com/testing")
                         true
                     }
 
@@ -145,8 +149,8 @@ class ConfigFragment : Fragment() {
         }
     }
 
-    private fun openGitHub() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/WebView-CG/CanIAndroidWebView"))
+    private fun openUrlInBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
 

@@ -10,11 +10,12 @@
     <string name="enter_url">Enter URL</string>
     <string name="load">Load</string>
     <string name="code">Code</string>
-    <string name="github">GitHub</string>
+    <string name="github">Source Code</string>
     <string name="cordova">Cordova</string>
     <string name="none">None</string>
     <string name="all">All</string>
     <string name="presets">Presets</string>
     <string name="fullscreen_webview">Fullscreen WebView</string>
     <string name="fullscreen">Fullscreen</string>
+    <string name="docs">Documentation</string>
 </resources>

@@ -5,4 +5,8 @@
         android:id="@+id/action_github"
         android:title="@string/github"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_testing_url"
+        android:title="@string/docs"
+        app:showAsAction="never" />
 </menu>
