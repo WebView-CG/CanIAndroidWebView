@@ -18,32 +18,28 @@
 <html>
 <head>
     <title>CanIWebView</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>CanIWebView Test App</h1>
-    <p>This is a file served in the app by
-        <a href="https://developer.android.com/develop/ui/views/layout/webapps/load-local-content">
-            WebViewAssetLoader
-        </a>
-    </p>
+    <div class="header">
+        <h1>CanIWebView Test App</h1>
+    </div>
+    
+    <div class="container">
+        <p>This is a file served in the app by
+            <a href="https://developer.android.com/develop/ui/views/layout/webapps/load-local-content">
+                WebViewAssetLoader
+            </a>
+        </p>
 
-    <h2>Tools</h2>
+        <h2>Tools</h2>
 
-    <b>
-        <a href="https://caniwebview.com/app">Check out data on caniwebview.com</a>
-    </b>
+        <a href="https://caniwebview.com/app" class="tool-button">Check out data on caniwebview.com</a>
+        <a href="https://mdn-bcd-collector.gooborg.com/" class="tool-button">BCD Collector</a>
+        <a href="edge.html" class="tool-button">Edge Safe Area Test</a>
+        <a href="cookie.html" class="tool-button">Cookie Test</a>
 
-    <p>
-        <a href="https://mdn-bcd-collector.gooborg.com/">BCD Collector</a>
-    </p>
-
-    <button onclick="corsTestGet()">
-        CORS Test Request Get
-    </button>
-
-    <button onclick="corsTestGetCookie()">
-        CORS Test Request Send Cookie
-    </button>
 
     <h2>Test</h2>
     <h3>Debug data from the WebView</h3>
@@ -56,53 +52,7 @@
             const origin = window.location.origin;
             const ua = window.navigator.userAgent;
             result.textContent = `User agent: ${ua} / Origin: ${origin}`;
-        });
-        
-        function corsTestGet() {
-            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
-                {
-                    method: 'GET',
-                    mode: 'cors',
-                    credentials: 'include',
-                })
-                .then(response => response.text())
-                .then(data => {
-                    console.log(data);
-
-                    const result = document.getElementById('testresult');
-                    result.innerText = data;
-                })
-                .catch(error => {
-                    console.error(error);
-
-                    const result = document.getElementById('testresult');
-                    result.innerText = error;
-                });
-        }
-
-        function corsTestGetCookie() {
-            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
-                {
-                    method: 'GET',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Cookie': 'test=android'
-                    }
-                })
-                .then(response => response.text())
-                .then(data => {
-                    console.log(data);
-
-                    const result = document.getElementById('testresult');
-                    result.innerText = data;
-                })
-                .catch(error => {
-                    console.error(error);
-
-                    const result = document.getElementById('testresult');
-                    result.innerText = error;
-                });
-        }
+        });        
     </script>
+    </div>
 </body>

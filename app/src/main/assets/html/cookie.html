@@ -1,0 +1,102 @@
+<!--
+  ~ Copyright (C) 2025 Webview Community Group
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CanIWebView</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>CanIWebView Test App</h1>
+    </div>
+    
+    <div class="container">
+        <p>This is a file served in the app by
+            <a href="https://developer.android.com/develop/ui/views/layout/webapps/load-local-content">
+                WebViewAssetLoader
+            </a>
+        </p>
+
+        <h2>Cookie Tools</h2>
+
+    <p>You can test cookie behavior on this locally hosted site using Chrome Dev Tools</p>
+
+    <button onclick="corsTestGet()">
+        CORS Test Request Get
+    </button>
+
+    <button onclick="corsTestGetCookie()">
+        CORS Test Request Send Cookie
+    </button>
+
+    <h2>Test</h2>
+    <h3>Debug data from the WebView</h3>
+    <div id="testresult"></div>
+
+    <script type="text/javascript">
+        
+        function corsTestGet() {
+            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
+                {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'include',
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = data;
+                })
+                .catch(error => {
+                    console.error(error);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = error;
+                });
+        }
+
+        function corsTestGetCookie() {
+            fetch('https://caniwebview.merz.workers.dev/?echo-origin',
+                {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'include',
+                    headers: {
+                        'Cookie': 'test=android'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = data;
+                })
+                .catch(error => {
+                    console.error(error);
+
+                    const result = document.getElementById('testresult');
+                    result.innerText = error;
+                });
+        }
+    </script>
+    </div>
+</body>
