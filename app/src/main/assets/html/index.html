@@ -15,35 +15,79 @@
   -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CanIWebView</title>
+    <title>CanIWebView Test App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1>CanIWebView Test App</h1>
-    </div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     
-    <div class="container">
-        <p>This is a file served in the app by
-            <a href="https://developer.android.com/develop/ui/views/layout/webapps/load-local-content">
-                WebViewAssetLoader
-            </a>
-        </p>
+    <header class="header">
+        <h1>CanIWebView Test App</h1>
+    </header>
+    
+    <main id="main-content" class="container">
+        <section aria-labelledby="about-heading">
+            <h2 id="about-heading" class="sr-only">About</h2>
+            <p>This is a file served in the app by
+                <a href="https://developer.android.com/develop/ui/views/layout/webapps/load-local-content" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="external-link"
+                   aria-describedby="external-link-desc">
+                    WebViewAssetLoader documentation
+                </a>
+            </p>
+            <div id="external-link-desc" class="sr-only">Links open in the same WebView</div>
+        </section>
 
-        <h2>Tools</h2>
+        <section aria-labelledby="tools-heading">
+            <h2 id="tools-heading">Tools</h2>
+            <nav aria-label="Testing tools">
+                <a href="https://caniwebview.com/app" 
+                   class="tool-button external-link" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-describedby="external-link-desc">
+                    CanIWebView compatibility data
+                </a>
+                <a href="https://mdn-bcd-collector.gooborg.com/" 
+                   class="tool-button external-link" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-describedby="external-link-desc">
+                    MDN Browser Compatibility Data Collector
+                </a>
+                <a href="edge.html" 
+                   class="tool-button"
+                   aria-describedby="internal-link-desc">
+                    Edge Safe Area Test
+                </a>
+                <a href="cookie.html" 
+                   class="tool-button"
+                   aria-describedby="internal-link-desc">
+                    Cookie Test
+                </a>
+            </nav>
+            <div id="internal-link-desc" class="sr-only">Links open in the same WebView</div>
+        </section>
 
-        <a href="https://caniwebview.com/app" class="tool-button">Check out data on caniwebview.com</a>
-        <a href="https://mdn-bcd-collector.gooborg.com/" class="tool-button">BCD Collector</a>
-        <a href="edge.html" class="tool-button">Edge Safe Area Test</a>
-        <a href="cookie.html" class="tool-button">Cookie Test</a>
-
-
-    <h2>Test</h2>
-    <h3>Debug data from the WebView</h3>
-    <div id="testresult"></div>
+        <section aria-labelledby="test-heading">
+            <h2 id="test-heading">Test</h2>
+            <h3 id="debug-heading">Debug data from the WebView</h3>
+            <div id="testresult" 
+                 role="status" 
+                 aria-live="polite" 
+                 aria-labelledby="debug-heading"
+                 aria-describedby="debug-description">
+            </div>
+            <div id="debug-description" class="sr-only">
+                This section displays the user agent string and origin URL of the current WebView
+            </div>
+        </section>
+    </main>
 
     <script type="text/javascript">
         // Set debug data on result div on load
@@ -54,5 +98,4 @@
             result.textContent = `User agent: ${ua} / Origin: ${origin}`;
         });        
     </script>
-    </div>
 </body>
