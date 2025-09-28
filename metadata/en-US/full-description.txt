@@ -1,0 +1,3 @@
+CanIWebView helps you with testing your code and understanding WebViews.
+
+This app is an open source project and not officially supported by any parties represented in the WebView Community Group
