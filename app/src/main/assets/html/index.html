@@ -37,9 +37,11 @@
                    rel="noopener noreferrer" 
                    class="external-link"
                    aria-describedby="external-link-desc">
-                    WebViewAssetLoader documentation
+                    WebViewAssetLoader
                 </a>
+                on
             </p>
+            <p id="origin"></p>
             <div id="external-link-desc" class="sr-only">Links open in the same WebView</div>
         </section>
 
@@ -93,9 +95,11 @@
         // Set debug data on result div on load
         document.addEventListener('DOMContentLoaded', function() {
             const result = document.getElementById('testresult');
+            const originElement = document.getElementById('origin');
             const origin = window.location.origin;
             const ua = window.navigator.userAgent;
-            result.textContent = `User agent: ${ua} / Origin: ${origin}`;
+            result.textContent = `User agent: ${ua}`;
+            originElement.textContent = origin
         });        
     </script>
 </body>
