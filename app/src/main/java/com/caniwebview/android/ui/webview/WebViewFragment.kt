@@ -69,6 +69,9 @@ class WebViewFragment : Fragment() {
         // Add the MenuProvider
         setupMenu()
 
+        // Set debugging for testing and automations
+        WebView.setWebContentsDebuggingEnabled(true)
+
         webView = binding.webView
         val urlEditText: EditText = binding.urlEditText
         val loadButton: Button = binding.loadButton
