@@ -11,8 +11,8 @@ android {
         applicationId = "com.caniwebview.android"
         minSdk = 24
         targetSdk = 36
-        versionCode = 110
-        versionName = "1.0.1"
+        versionCode = 1100
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
