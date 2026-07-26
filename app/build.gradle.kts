@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.caniwebview.android"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 110
         versionName = "1.0.1"
 
